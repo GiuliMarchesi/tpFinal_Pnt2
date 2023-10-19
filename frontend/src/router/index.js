@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from '@ionic/vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import SystemView from '../views/SystemView.vue'
 import ShoppingCart from '../views/ShoppingCart.vue'

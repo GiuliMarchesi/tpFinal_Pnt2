@@ -1,12 +1,13 @@
 <script>
-// import { RouterLink, RouterView } from 'vue-router'
-import {IonApp, IonRouterOutlet, IonHeader} from '@ionic/vue'
+//import { RouterLink, RouterView } from 'vue-router'
+//import {IonApp, IonRouterOutlet, IonHeader} from '@ionic/vue'
 import { storeToRefs } from "pinia";
 import { useShoppingStore } from "../src/stores/shoppingcart";
 import { loginStore } from "./stores/userStore";
 
+
 export default {
-  components: { IonApp, IonRouterOutlet, IonHeader},
+  //components: { IonApp, IonRouterOutlet, IonHeader},
   setup() {
     const store = useShoppingStore();
     const { addToCar, getProducts, getLenghtProducts } = storeToRefs(store);
@@ -19,18 +20,22 @@ export default {
 }
 </script>
 
+<script setup>
+  import navbar from '../src/components/NavBar.vue';
+</script>
+
 <template>
-  <ion-app>
-    <ion-header>
-      <RouterLink to="/">Home  |</RouterLink>
+  
+    <header>
+      <navbar/>
+      <!-- <RouterLink to="/">Home  |</RouterLink>
       <RouterLink v-if="!estaLogeado" to="/login">Login |</RouterLink>
       <RouterLink to="/about">About  |</RouterLink>
       <RouterLink v-if="estaLogeado" to="/system">System  |</RouterLink>
       <RouterLink to="/shopping">Shopping Cart (Cantidad: {{ getLenghtProducts }})</RouterLink> 
-      Usuario: {{ this.usuario.email }}
-    </ion-header>
-    <ion-router-outlet />
-  </ion-app>
+      Usuario: {{ this.usuario.email }} -->
+    </header>
+  
 </template>
 
 <style scoped>

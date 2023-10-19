@@ -1,10 +1,10 @@
 <script>
-import {IonPage,IonContent, IonInput, IonButton} from '@ionic/vue'
+//import {IonPage,IonContent, IonInput, IonButton} from '@ionic/vue'
 import { storeToRefs } from "pinia";
 import { loginStore } from "../stores/userStore";
 
 export default {
-  components: {IonPage, IonContent, IonInput, IonButton},
+  //components: {IonPage, IonContent, IonInput, IonButton},
   setup() {
     const store = loginStore();
     const { estaLogeado } = storeToRefs(store);
@@ -30,14 +30,11 @@ export default {
 </script>
 
 <template>
-  <ion-page>
-    <ion-content>
-        <h2>Login</h2>
-        <ion-input v-model="user.email" label="email" type="email"></ion-input>
-        <ion-input v-model="user.password" label="password" type="password"></ion-input>
-        <ion-button @click="loginForm">Login</ion-button>
-    </ion-content>
-  </ion-page>
+  <h2>Login</h2>
+  <input v-model="user.email" label="email" type="email">
+  <input v-model="user.password" label="password" type="password">
+  <button @click="loginForm">Login</button>
+    
 </template>
 
 <style>

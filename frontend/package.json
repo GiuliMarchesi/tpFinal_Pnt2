@@ -8,6 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.16",
+    "@heroicons/vue": "^2.0.18",
     "@ionic/vue": "^7.4.2",
     "@ionic/vue-router": "^7.4.2",
     "axios": "^1.5.1",
@@ -17,6 +19,9 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.4",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3",
     "vite": "^4.4.9"
   }
 }

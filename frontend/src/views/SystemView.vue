@@ -1,9 +1,9 @@
 <script>
-import {IonPage,IonContent,IonList,IonInput,IonButton} from '@ionic/vue'
+//import {IonPage,IonContent,IonList,IonInput,IonButton} from '@ionic/vue'
 import axios from 'axios'
 import listaService from '../service/listaService'
 export default {
-  components: {IonPage, IonContent, IonList, IonInput, IonButton},
+ // components: {IonPage, IonContent, IonList, IonInput, IonButton},
   data() {
     return {
         lista: [],
@@ -59,21 +59,17 @@ export default {
 </script>
 
 <template>
-  <ion-page>
-    <ion-content>
         <h2>System</h2>
-        <ion-list v-for="e in lista" :key="e.id">
+        <list v-for="e in lista" :key="e.id">
             {{ e.id }} {{ e.name }}
-            <ion-button @click="deleteData(e.id)">Delete name from the list</ion-button>
-            <ion-button @click="putData(e.id)">Replace from the list</ion-button>
-        </ion-list>
-        <ion-input v-model="person.id" label="id" placeholder="input an id"></ion-input>
-        <ion-input v-model="person.name" label="Name" placeholder="input a name"></ion-input>
-        <ion-button @click="saveData">Add Name to list</ion-button>
-        <ion-button @click="loadData">Load Data</ion-button><br/>
+            <button @click="deleteData(e.id)">Delete name from the list</button>
+            <button @click="putData(e.id)">Replace from the list</button>
+        </list>
+        <input v-model="person.id" label="id" placeholder="input an id">
+        <input v-model="person.name" label="Name" placeholder="input a name">
+        <button @click="saveData">Add Name to list</button>
+        <button @click="loadData">Load Data</button><br/>
         {{ errorMessage }}
-    </ion-content>
-  </ion-page>
 </template>
 
 <style>
