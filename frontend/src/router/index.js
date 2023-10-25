@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from '@ionic/vue-router'
 import HomeView from '../views/HomeView.vue'
 import SystemView from '../views/SystemView.vue'
 import ShoppingCart from '../views/ShoppingCart.vue'
-import loginView from '../views/LoginView.vue'
+import LoginView from '../views/LoginView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,17 +16,17 @@ const router = createRouter({
       path: '/system',
       name: 'systemview',
       component: SystemView,
-      meta: {RequiereAuth: true}
+      meta: { RequireAuth: true}
+    },
+    {
+      path: '/login',
+      name: 'loginview',
+      component: LoginView
     },
     {
       path: '/shopping',
       name: 'shopping',
       component: ShoppingCart
-    },
-    {
-      path: '/login',
-      name: 'loginView',
-      component: loginView
     },
     {
       path: '/about',
@@ -41,11 +41,10 @@ const router = createRouter({
 
 router.beforeEach( (to,from,next) => {
   const usuarioLog = localStorage.getItem('usuario')
-    if( to.matched.some(r => r.meta.RequireAuth) && !usuarioLog ) {
-      next('/')
-    }
-    next()
-  })
+  if( to.matched.some(r => r.meta.RequireAuth) && !usuarioLog ) {
+    next('/')
+  }
+  next()
+})
   
-
 export default router
