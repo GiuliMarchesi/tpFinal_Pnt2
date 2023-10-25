@@ -7,7 +7,7 @@ export default {
 
 <template>
   <ion-page>
-    <h2>This is an about page</h2>
+    <h2>Choferes</h2>
   </ion-page>
 </template>
 

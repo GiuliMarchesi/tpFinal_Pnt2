@@ -7,7 +7,7 @@ export default {
 
 <template>
   <ion-page>
-    <h2>Remis app</h2>
+    <h2>Añadir autos</h2>
   </ion-page>
 </template>
 

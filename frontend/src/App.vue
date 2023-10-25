@@ -26,10 +26,12 @@ export default {
     <ion-header>
       <RouterLink to="/">Home  |</RouterLink>
       <RouterLink to="/login" v-if="!estaLogeado">Login  |</RouterLink>
-      <RouterLink to="/about">About  |</RouterLink>
+      <RouterLink to="/vehiculos">Vehiculos  |</RouterLink>
+      <RouterLink to="/choferes">Choferes  |</RouterLink>
+      <RouterLink to="/viajes">Viajes  |</RouterLink>
       <RouterLink to="/system" v-if="estaLogeado">System  |</RouterLink>
-      <RouterLink to="/shopping">Shopping Cart (Cantidad: {{ getLenghtProducts }})</RouterLink>
-      user {{this.usuario.email}}
+      <!-- <RouterLink to="/shopping">Shopping Cart (Cantidad: {{ getLenghtProducts }})</RouterLink> -->
+      Usuario: {{this.usuario.email}}
     </ion-header>
     <ion-router-outlet />
   </ion-app>

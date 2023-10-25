@@ -7,7 +7,7 @@ export default {
 
 <template>
   <ion-page>
-    <h2>Remis app</h2>
+    <h2>Viajes</h2>
   </ion-page>
 </template>
 

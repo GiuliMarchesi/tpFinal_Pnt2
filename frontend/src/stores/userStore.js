@@ -4,7 +4,8 @@ export const loginStore = defineStore('login', {
     state: () => {
         return {
             usuario: {},
-            estaLogeado: false
+            estaLogeado: false,
+            esAdmin: true // TODO: Hacerlo dinamico
         }
     },
     actions: {

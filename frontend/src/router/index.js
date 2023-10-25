@@ -3,6 +3,9 @@ import HomeView from '../views/HomeView.vue'
 import SystemView from '../views/SystemView.vue'
 import ShoppingCart from '../views/ShoppingCart.vue'
 import LoginView from '../views/LoginView.vue'
+import VehiculosView from '../views/Vehiculos/VehiculosView.vue';
+import VehiculosAddView from '../views/Vehiculos/VehiculosAddView.vue';
+import ChoferesView from '../views/ChoferesView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,7 +19,7 @@ const router = createRouter({
       path: '/system',
       name: 'systemview',
       component: SystemView,
-      meta: { RequireAuth: true}
+      meta: { RequireAuth: true }
     },
     {
       path: '/login',
@@ -29,22 +32,35 @@ const router = createRouter({
       component: ShoppingCart
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      path: '/vehiculos',
+      name: 'Vehiculos',
+      component: VehiculosView
+    },
+    {
+      path: '/vehiculos/add',
+      name: 'Añadir Vehiculos',
+      component: VehiculosAddView,
+      meta: { RequireAdmin: true }
+    },
+    {
+      path: '/choferes',
+      name: 'Choferes',
+      component: ChoferesView
     }
   ]
 })
 
-router.beforeEach( (to,from,next) => {
+router.beforeEach((to, from, next) => {
   const usuarioLog = localStorage.getItem('usuario')
-  if( to.matched.some(r => r.meta.RequireAuth) && !usuarioLog ) {
+  if (to.matched.some(r => r.meta.RequireAuth) && !usuarioLog) {
+    next('/')
+  }
+
+  // TODO: Validar rol de administrador.
+  if (to.matched.some(r => r.meta.RequireAdmin) && !usuarioLog) {
     next('/')
   }
   next()
 })
-  
+
 export default router
