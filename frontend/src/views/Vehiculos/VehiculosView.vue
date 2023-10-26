@@ -1,6 +1,6 @@
 <script>
 
-import { IonPage } from "@ionic/vue";
+import { IonPage, IonContent } from "@ionic/vue";
 import { userStore } from "../../stores/userStore";
 
 import { storeToRefs } from "pinia";

@@ -9,7 +9,8 @@ const port = 3000
 app.get('/ping', (req, res) => {
   res.send('pong')
 })
-const lista = [{id:100,name:'Charly'},{id:200,name:'Jhon'}]
+// const lista = [{id:100,name:'Charly'},{id:200,name:'Jhon'}]
+const lista = [{}]
 
 app.get('/lista', (req, res) => {
   if(req.headers['authorization']!==undefined) {
@@ -27,11 +28,33 @@ app.get('/lista', (req, res) => {
       res.sendStatus(401);
     }
 })
-app.post('/lista', (req,res) =>{
-    //console.log(req.body);
-    lista.push(req.body)
-    res.status(200).json({message:'ok'})
-})
+// app.post('/lista', (req,res) =>{
+//     //console.log(req.body);
+//     lista.push(req.body)
+//     res.status(200).json({message:'ok'})
+// })
+
+app.post('/lista', (req, res) => {
+  // Genera un nuevo ID basado en el último ID de la lista
+  const lastId = lista.length > 0 ? lista[lista.length - 1].id : 0;
+  const newId = lastId + 1;
+
+  const {nombre, apellido, dni} = req.body;
+  // Crea un nuevo objeto con el ID autoincrementado
+  const newChofer = {
+    id: newId,
+    nombre,
+    apellido,
+    dni,
+  };
+
+  // Agrega el nuevo elemento a la lista
+  lista.push(newChofer);
+
+  res.status(200).json({ message: 'OK' });
+});
+
+
 app.delete('/lista/:id', (req,res) =>{
     // console.log(req.params.id);
     // lista = lista.filter(e=>e.id!=req.params.id)
