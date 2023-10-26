@@ -74,6 +74,23 @@ app.post('/login',(req,res)=>{
     }
 })
 
+app.get("/autos/search", async (req, res) => {
+  const { q } = req.query;
+  const rt = await fetch(`https://www.car.info/en-se/search/super/${q}`);
+  try {
+    const data = await rt.json();
+    const cars = data.hits.cars.slice(0, 5);
+    res.json(cars);
+  } catch (error) {
+    res.json([])
+  }
+})
+
+app.post("/autos", async (req, res) => {
+  const { auto } = req.body;
+  res.json("ok")
+})
+
 app.listen(port, function() {
   console.log("Server is running on port " + port);
 });
