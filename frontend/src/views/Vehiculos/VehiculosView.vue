@@ -1,13 +1,13 @@
 <script>
 import { IonPage } from "@ionic/vue";
-import { loginStore } from "../../stores/userStore";
+import { userStore } from "../../stores/userStore";
 import { storeToRefs } from "pinia";
 
 export default {
   components: { IonPage },
   setup() {
-    const store1 = loginStore();
-    const { esAdmin } = storeToRefs(store1);
+    const store = userStore();
+    const { esAdmin } = storeToRefs(store);
 
     return { esAdmin };
   },
