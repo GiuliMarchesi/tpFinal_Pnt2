@@ -1,23 +1,29 @@
 <script>
-import { IonPage } from "@ionic/vue";
+import { IonPage, IonContent } from "@ionic/vue";
 import { loginStore } from "../../stores/userStore";
 import { storeToRefs } from "pinia";
 
 export default {
-  components: { IonPage },
+  components: { IonPage, IonContent },
   setup() {
     const store1 = loginStore();
-    const { esAdmin } = storeToRefs(store1);
-
-    return { esAdmin };
+    const { esAdmin, estaLogeado } = storeToRefs(store1);
+    return { esAdmin, estaLogeado };
+  },
+  methods: {
+    puedeVerAdd() {
+      return this.esAdmin.valueOf() && this.estaLogeado.valueOf();
+    },
   },
 };
 </script>
 
 <template>
   <ion-page>
-    <h2>Flota de vehiculos</h2>
-    <a v-if="esAdmin" href="/vehiculos/add">Añadir nuevo vehiculo</a>
+    <ion-content>
+      <h2>Flota de vehiculos</h2>
+      <RouterLink v-if="puedeVerAdd()" to="/vehiculos/add">Añadir vehiculo</RouterLink>
+    </ion-content>
   </ion-page>
 </template>
 
