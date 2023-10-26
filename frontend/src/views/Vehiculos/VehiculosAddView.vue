@@ -54,6 +54,7 @@ export default {
           foto: this.getAutoFoto(this.autoSeleccionado.cover_photo_image_id),
         },
       });
+      this.resetearBusqueda();
       this.$router.push("/vehiculos");
     },
     resetearBusqueda() {
