@@ -5,6 +5,7 @@ import jsonwebtoken from 'jsonwebtoken';
 const app = express()
 app.use(cors())
 app.use(express.json())
+
 const port = 3000
 app.get('/ping', (req, res) => {
   res.send('pong')
@@ -72,9 +73,12 @@ app.put('/lista/:id', (req,res) =>{
     // res.status(404).json({message:'error'})
 })
 
+const rolAdmin = "admin"
+const rolChofer = "chofer"
+
 const users = [
-  {email: "admin@test.com",password:"1234",'rol':'admin'},
-  {email: "user@test.com",password:"1234",'rol':'user'},
+  {email: "admin@admin.com",password:"1234",'rol':rolAdmin},
+  {email: "tset@test.com",password:"1234",'rol':rolChofer},
 ]
 
 
@@ -84,11 +88,11 @@ app.post('/login',(req,res)=>{
     const user = req.body;
     const userDb = users.find(u=>u.email == user.email && u.password == user.password)
     if (userDb){
-        console.log(userDb)
+        delete userDb.password 
+        const userRol = userDb["rol"];
         const token = 
-          jsonwebtoken.sign({email:user.email,rol:'adm'},'clave_secreta')
-        res.json({token:token})
-        res.status(200).json({message:'ok'})
+          jsonwebtoken.sign({email:user.email,rol:userRol},'clave_secreta')
+        res.json({token:token, usuario:userDb})
       }else{
         res.status(400).json({message:'Email y password invalido'})
       }
