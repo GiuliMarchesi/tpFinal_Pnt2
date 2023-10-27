@@ -1,15 +1,117 @@
 <script>
-import {IonPage} from '@ionic/vue'
+import { IonPage, IonContent, IonList, IonInput, IonButton } from "@ionic/vue";
+import axios from "axios";
+import choferService from "../service/choferService";
 export default {
-  components: {IonPage}
-}
+  components: { IonPage, IonContent, IonList, IonInput, IonButton },
+  data() {
+    return {
+      lista: [],
+      person: {},
+      errorMessage: "",
+    };
+  },
+  mounted() {
+    this.loadData();
+  },
+  methods: {
+    async loadData() {
+      try {
+        this.lista = await choferService.loadData();
+      } catch (e) {
+        console.log(e);
+        this.errorMessage = "Se produjo un error";
+      }
+    },
+    async saveData() {
+      try {
+        //await axios.post("http://localhost:3000/lista",this.person)
+        await choferService.saveData(this.person);
+        await this.loadData();
+      } catch (e) {
+        console.log(e);
+        this.errorMessage = e;
+      }
+    },
+    async deleteData(id) {
+      try {
+        // await axios.delete("http://localhost:3000/lista/"+id)
+        await choferService.deleteData(id);
+        await this.loadData();
+      } catch (e) {
+        console.log(e);
+        this.errorMessage = "Se produjo un error";
+      }
+    },
+    async putData(id) {
+      try {
+        //await axios.put("http://localhost:3000/lista/"+id,this.person)
+        await choferService.putData(id, this.person);
+        await this.loadData();
+      } catch (e) {
+        console.log(e);
+        this.errorMessage = "Se produjo un error";
+      }
+    },
+  },
+};
 </script>
 
 <template>
   <ion-page>
-    <h2>Choferes</h2>
+    <ion-content class="ion-padding">
+      <h2 class="ion-text-center" >Listado de Choferes</h2>
+      <ion-list>
+        <ion-item class="header-choferes">
+          <ion-label>ID</ion-label>
+          <ion-label>Nombre</ion-label>
+          <ion-label>Apellido</ion-label>
+          <ion-label>DNI</ion-label>
+          <ion-label>Acciones</ion-label>
+        </ion-item>
+        <ion-item v-for="e in lista" :key="e.id">
+          <ion-label>{{ e.id }}</ion-label>
+          <ion-label>{{ e.nombre }}</ion-label>
+          <ion-label>{{ e.apellido }}</ion-label>
+          <ion-label>{{ e.dni }}</ion-label>
+          <ion-button color="danger" @click="deleteData(e.id)"
+            >Eliminar</ion-button
+          >
+          <ion-button @click="putData(e.id)">Modificar</ion-button>
+        </ion-item>
+      </ion-list>
+
+      <h3>Agregar Choferes</h3>
+
+      <ion-list>
+        <ion-item>
+          <ion-input
+            v-model="person.nombre"
+            label="Nombre"
+            placeholder="Nombre del chofer"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            v-model="person.apellido"
+            label="Apellido"
+            placeholder="Apellido del chofer"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            v-model="person.dni"
+            label="DNI"
+            placeholder="DNI del chofer"
+          ></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button @click="saveData">Agregar</ion-button>
+      <ion-button @click="loadData">Cargar</ion-button>
+      <br />
+      {{ errorMessage }}
+    </ion-content>
   </ion-page>
 </template>
 
-<style>
-</style>
+<style></style>

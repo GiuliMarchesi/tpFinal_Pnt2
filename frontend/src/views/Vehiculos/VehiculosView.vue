@@ -1,6 +1,8 @@
 <script>
+
 import { IonPage, IonContent } from "@ionic/vue";
-import { loginStore } from "../../stores/userStore";
+import { userStore } from "../../stores/userStore";
+
 import { storeToRefs } from "pinia";
 import axios from "axios";
 import {vehiculoStore} from "../../stores/vehiculoStore"
@@ -8,11 +10,13 @@ import {vehiculoStore} from "../../stores/vehiculoStore"
 export default {
   components: { IonPage, IonContent },
   setup() {
-    const store1 = loginStore();
-    const { esAdmin, estaLogeado } = storeToRefs(store1);
+
     const store2 = vehiculoStore();
     const {fetchVehiculos,getVehiculos} = storeToRefs(store2)
+    const store = userStore();
+    const { esAdmin, estaLogeado } = storeToRefs(store);
     return { esAdmin, estaLogeado,fetchVehiculos,getVehiculos};
+
   },
   methods: {
     vehiculos:()=> this.getVehiculos(),

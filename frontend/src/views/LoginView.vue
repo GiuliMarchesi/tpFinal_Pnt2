@@ -1,12 +1,12 @@
 <script>
 import {IonPage,IonContent,IonInput,IonButton} from '@ionic/vue'
 import { storeToRefs } from "pinia";
-import { loginStore } from "../stores/userStore"
+import { userStore } from "../stores/userStore"
 
 export default {
   components: {IonPage,IonContent,IonInput,IonButton},
   setup() {
-    const store = loginStore();
+    const store = userStore();
     const { estaLogeado } = storeToRefs(store);
     const { login } = store;
     return { login, estaLogeado };
@@ -18,9 +18,8 @@ export default {
   },
   methods: {
     async loginForm() {
-      console.log(this.user.email);
       // si mock api -> hardcodear
-      await this.login(this.user);
+      const user = await this.login(this.user);
       console.log(this.estaLogeado);
       if(this.estaLogeado) {
         this.$router.push("/system")

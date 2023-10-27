@@ -45,7 +45,8 @@ const router = createRouter({
     {
       path: '/choferes',
       name: 'Choferes',
-      component: ChoferesView
+      component: ChoferesView,
+      meta: { RequireAdmin: true }
     }
   ]
 })
@@ -55,10 +56,11 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.RequireAuth) && !usuarioLog) {
     next('/')
   }
-
-  // TODO: Validar rol de administrador.
-  if (to.matched.some(r => r.meta.RequireAdmin) && !usuarioLog) {
-    next('/')
+  if(usuarioLog){
+    const userRol = JSON.parse(usuarioLog).rol
+    if (to.matched.some(r => r.meta.RequireAdmin) && userRol != "admin") {
+      next('/')
+    }
   }
   next()
 })
