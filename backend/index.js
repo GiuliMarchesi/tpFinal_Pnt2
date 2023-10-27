@@ -39,7 +39,6 @@ app.post('/lista', (req, res) => {
   // Genera un nuevo ID basado en el último ID de la lista
   const lastId = lista.length > 0 ? lista[lista.length - 1].id : 0;
   const newId = lastId + 1;
-
   const {nombre, apellido, dni} = req.body;
   // Crea un nuevo objeto con el ID autoincrementado
   const newChofer = {
@@ -48,10 +47,8 @@ app.post('/lista', (req, res) => {
     apellido,
     dni,
   };
-
   // Agrega el nuevo elemento a la lista
   lista.push(newChofer);
-
   res.status(200).json({ message: 'OK' });
 });
 
@@ -60,9 +57,13 @@ app.delete('/lista/:id', (req,res) =>{
     // console.log(req.params.id);
     // lista = lista.filter(e=>e.id!=req.params.id)
     const index = lista.findIndex(e=>e.id==req.params.id);
-    lista.pop(index)
+    lista.splice(index, 1)
+
+    // lista.pop(index)
     res.status(200).json({message:'ok'})
 })
+
+
 app.put('/lista/:id', (req,res) =>{
     //console.log(req.body);
     //console.log(req.params.id);

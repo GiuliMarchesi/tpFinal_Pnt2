@@ -45,7 +45,8 @@ const router = createRouter({
     {
       path: '/choferes',
       name: 'Choferes',
-      component: ChoferesView
+      component: ChoferesView,
+      meta: { RequireAdmin: true }
     }
   ]
 })
