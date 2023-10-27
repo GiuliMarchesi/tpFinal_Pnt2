@@ -10,6 +10,8 @@ import {
   IonButton,
 } from "@ionic/vue";
 import axios from "axios";
+import { storeToRefs } from "pinia";
+import {vehiculoStore} from "../../stores/vehiculoStore"
 
 export default {
   components: {
@@ -21,6 +23,11 @@ export default {
     IonCardSubtitle,
     IonCardTitle,
     IonButton,
+  },
+  setup(){
+    const store2 = vehiculoStore();
+    const {addVehiculo} = storeToRefs(store2)
+    return { addVehiculo};
   },
   methods: {
     async search() {
@@ -47,12 +54,10 @@ export default {
       if (!this.autoSeleccionado) {
         return;
       }
-      await axios.post(`http://localhost:3000/autos`, {
-        auto: {
+      await this.addVehiculo( {
           id: this.autoSeleccionado.gid,
           nombre: this.autoSeleccionado.full_name,
           foto: this.getAutoFoto(this.autoSeleccionado.cover_photo_image_id),
-        },
       });
       this.$router.push("/vehiculos");
     },

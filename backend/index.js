@@ -10,6 +10,7 @@ app.get('/ping', (req, res) => {
   res.send('pong')
 })
 const lista = [{id:100,name:'Charly'},{id:200,name:'Jhon'}]
+const autos = []
 
 app.get('/lista', (req, res) => {
   if(req.headers['authorization']!==undefined) {
@@ -88,7 +89,12 @@ app.get("/autos/search", async (req, res) => {
 
 app.post("/autos", async (req, res) => {
   const { auto } = req.body;
+  autos.push(auto)
   res.json("ok")
+})
+
+app.get('/autos',(req,res)=>{
+  res.json(autos)
 })
 
 app.listen(port, function() {
