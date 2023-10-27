@@ -1,7 +1,11 @@
 import { defineStore } from "pinia";
+import axios from "axios"
+
 export const vehiculoStore = defineStore("vehiculo", {
   state: () => {
-    return { autos: [] };
+    return {
+      autos: []
+    };
   },
   actions: {
     async fetchVehiculos() {
