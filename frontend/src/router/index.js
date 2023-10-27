@@ -55,11 +55,9 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.RequireAuth) && !usuarioLog) {
     next('/')
   }
-  if(usuarioLog){
-    const userRol = JSON.parse(usuarioLog).rol
-    if (to.matched.some(r => r.meta.RequireAdmin) && userRol != "admin") {
-      next('/')
-    }
+  const userRol = JSON.parse(usuarioLog || "{}")?.rol
+  if (to.matched.some(r => r.meta.RequireAdmin) && userRol != "admin") {
+    next('/')
   }
   next()
 })
