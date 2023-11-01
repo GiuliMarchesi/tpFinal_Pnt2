@@ -37,10 +37,11 @@ const autos = [
     "foto": "https://s.car.info/image_files/90/201821.jpg"
   }
 ]
+const contraseniaDefault = "1234";
 
 const users = [
-  { id: 1, email: "admin@admin.com", password: "1234", 'rol': rolAdmin },
-  { id: 2, email: "tset@test.com", password: "1234", 'rol': rolChofer, choferId: 1 },
+  { id: 1, email: "admin@admin.com", password: contraseniaDefault, 'rol': rolAdmin },
+  { id: 2, email: "tset@test.com", password: contraseniaDefault, 'rol': rolChofer, choferId: 1 },
 ]
 
 const viaje = [
