@@ -16,7 +16,7 @@ export const userStore = defineStore('user', {
                 if (datos.status == 200) {
                     const user = datos.data.usuario;
                     this.estaLogeado = true;
-                    this.esAdmin = user.rol = "admin" ? true : false;
+                    this.esAdmin = user.rol === "admin" ? true : false;
                     this.usuario = user;
                     localStorage.setItem('usuario', JSON.stringify(
                         { email: usuario.email, token: datos.data.token, rol: user.rol }))

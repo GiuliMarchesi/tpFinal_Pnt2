@@ -10,24 +10,66 @@ const port = 3000
 app.get('/ping', (req, res) => {
   res.send('pong')
 })
-// const lista = [{id:100,name:'Charly'},{id:200,name:'Jhon'}]
-const lista = [{}]
+const rolAdmin = "admin"
+const rolChofer = "chofer"
+
+const lista = [{ id: 1, name: 'Charly' }, { id: 200, name: 'Jhon' }]
+
+const autos = [
+  {
+    "id": 16598339,
+    "nombre": "Ford F-150 Regular Cab",
+    "foto": "https://s.car.info/image_files/90/552130.jpg"
+  },
+  {
+    "id": 16354121,
+    "nombre": "Shelby Mustang",
+    "foto": "https://s.car.info/image_files/90/577064.jpg"
+  },
+  {
+    "id": 71794,
+    "nombre": "Chevrolet Corvette",
+    "foto": "https://s.car.info/image_files/90/1248070.jpg"
+  },
+  {
+    "id": 64932,
+    "nombre": "Toyota Hilux",
+    "foto": "https://s.car.info/image_files/90/201821.jpg"
+  }
+]
+const contraseniaDefault = "1234";
+
+const users = [
+  { id: 1, email: "admin@admin.com", password: contraseniaDefault, 'rol': rolAdmin },
+  { id: 2, email: "tset@test.com", password: contraseniaDefault, 'rol': rolChofer, choferId: 1 },
+]
+
+const viaje = [
+  {
+    id: 1,
+    origen: "Avenida Falsa 123",
+    destino: "Boulevard Largavida 457",
+    choferId: 1,
+    autoId: 16354121,
+    precio: 25000
+  }
+]
 
 app.get('/lista', (req, res) => {
-  if(req.headers['authorization']!==undefined) {
+  if (req.headers['authorization'] !== undefined) {
     const bearerToken = req.headers['authorization'];
     const bearer = bearerToken.split(' ');
     const token = bearer[1];
-    jsonwebtoken.verify(token,'clave_secreta',(err, payload) => {
-      if(err) {
+    jsonwebtoken.verify(token, 'clave_secreta', (err, payload) => {
+      if (err) {
         res.sendStatus(401);
       } else {
         res.json(lista);
       }
     })
-    } else {
-      res.sendStatus(401);
-    }
+  } else {
+    res.sendStatus(401);
+  }
 })
 // app.post('/lista', (req,res) =>{
 //     //console.log(req.body);
@@ -39,8 +81,7 @@ app.post('/lista', (req, res) => {
   // Genera un nuevo ID basado en el último ID de la lista
   const lastId = lista.length > 0 ? lista[lista.length - 1].id : 0;
   const newId = lastId + 1;
-
-  const {nombre, apellido, dni} = req.body;
+  const { nombre, apellido, dni } = req.body;
   // Crea un nuevo objeto con el ID autoincrementado
   const newChofer = {
     id: newId,
@@ -48,57 +89,50 @@ app.post('/lista', (req, res) => {
     apellido,
     dni,
   };
-
   // Agrega el nuevo elemento a la lista
   lista.push(newChofer);
-
   res.status(200).json({ message: 'OK' });
 });
 
 
-app.delete('/lista/:id', (req,res) =>{
-    // console.log(req.params.id);
-    // lista = lista.filter(e=>e.id!=req.params.id)
-    const index = lista.findIndex(e=>e.id==req.params.id);
-    lista.pop(index)
-    res.status(200).json({message:'ok'})
-})
-app.put('/lista/:id', (req,res) =>{
-    //console.log(req.body);
-    //console.log(req.params.id);
-    const index = lista.findIndex(e=>e.id==req.params.id);
-    lista[index]=req.body
-    res.status(200).json({message:'ok'})
-    // falta manejo de errores
-    // res.status(404).json({message:'error'})
+app.delete('/lista/:id', (req, res) => {
+  // console.log(req.params.id);
+  // lista = lista.filter(e=>e.id!=req.params.id)
+  const index = lista.findIndex(e => e.id == req.params.id);
+  lista.splice(index, 1)
+
+  // lista.pop(index)
+  res.status(200).json({ message: 'ok' })
 })
 
-const rolAdmin = "admin"
-const rolChofer = "chofer"
 
-const users = [
-  {email: "admin@admin.com",password:"1234",'rol':rolAdmin},
-  {email: "tset@test.com",password:"1234",'rol':rolChofer},
-]
+app.put('/lista/:id', (req, res) => {
+  //console.log(req.body);
+  //console.log(req.params.id);
+  const index = lista.findIndex(e => e.id == req.params.id);
+  lista[index] = req.body
+  res.status(200).json({ message: 'ok' })
+  // falta manejo de errores
+  // res.status(404).json({message:'error'})
+})
 
-
-app.post('/login',(req,res)=>{
-  if(req.body){
+app.post('/login', (req, res) => {
+  if (req.body) {
     //Verificar estructura
     const user = req.body;
-    const userDb = users.find(u=>u.email == user.email && u.password == user.password)
-    if (userDb){
-        delete userDb.password 
-        const userRol = userDb["rol"];
-        const token = 
-          jsonwebtoken.sign({email:user.email,rol:userRol},'clave_secreta')
-        res.json({token:token, usuario:userDb})
-      }else{
-        res.status(400).json({message:'Email y password invalido'})
-      }
-    }else{
-      res.status(404).json({message:'Not Found'})
+    const userDb = users.find(u => u.email == user.email && u.password == user.password)
+    if (userDb) {
+      delete userDb.password
+      const userRol = userDb["rol"];
+      const token =
+        jsonwebtoken.sign({ email: user.email, rol: userRol }, 'clave_secreta')
+      res.json({ token: token, usuario: userDb })
+    } else {
+      res.status(400).json({ message: 'Email y password invalido' })
     }
+  } else {
+    res.status(404).json({ message: 'Not Found' })
+  }
 })
 
 app.get("/autos/search", async (req, res) => {
@@ -115,9 +149,14 @@ app.get("/autos/search", async (req, res) => {
 
 app.post("/autos", async (req, res) => {
   const { auto } = req.body;
+  autos.push(auto)
   res.json("ok")
 })
 
-app.listen(port, function() {
+app.get('/autos', (req, res) => {
+  res.json(autos)
+})
+
+app.listen(port, function () {
   console.log("Server is running on port " + port);
 });
