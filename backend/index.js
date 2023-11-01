@@ -190,3 +190,14 @@ app.post("/viajes", (req, res) => {
     res.status(400).json({ message: 'Faltan campos requeridos en la creción del viaje' });
   }
 });
+
+app.delete("/viajes/:id", (req, res) => {
+  const { id } = req.params;
+  const index = viajes.findIndex((viaje) => viaje.id == id);
+  if (index === -1) {
+    return res.status(404).json({ message: 'Viaje not found' });
+  }
+  viajes.splice(index, 1);
+  res.status(200).json({ message: 'OK' });
+});
+
