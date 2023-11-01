@@ -36,6 +36,22 @@ export default {
       <p v-for="auto in getVehiculos" :key="auto.gid">
         {{ auto.nombre }}
       </p>
+      <ion-card>
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item v-for="auto in getVehiculos" :key="auto.gid">
+          <ion-thumbnail slot="start">
+            <img alt="Autito" :src=auto.foto />
+          </ion-thumbnail>
+          <ion-label>{{ auto.nombre }}</ion-label>
+        </ion-item> 
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
     </ion-content>
   </ion-page>
 </template>
