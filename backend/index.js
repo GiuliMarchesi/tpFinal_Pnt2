@@ -39,9 +39,21 @@ const autos = [
 ]
 
 const users = [
-  { email: "admin@admin.com", password: "1234", 'rol': rolAdmin },
-  { email: "tset@test.com", password: "1234", 'rol': rolChofer },
+  { id: 1, email: "admin@admin.com", password: "1234", 'rol': rolAdmin },
+  { id: 2, email: "tset@test.com", password: "1234", 'rol': rolChofer, choferId: 1 },
 ]
+
+const viaje = [
+  {
+    id: 1,
+    origen: "Avenida Falsa 123",
+    destino: "Boulevard Largavida 457",
+    choferId: 1,
+    autoId: 16354121,
+    precio: 25000
+  }
+]
+
 app.get('/lista', (req, res) => {
   if (req.headers['authorization'] !== undefined) {
     const bearerToken = req.headers['authorization'];
