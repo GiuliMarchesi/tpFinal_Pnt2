@@ -18,7 +18,7 @@ export default {
     return { addToCar , getProducts, getLenghtProducts, usuario, estaLogeado, logout};
   },methods: {
     functionLogout(){
-      this.logout;
+      this.logout();
       this.$router.push('/');
     }
   }
@@ -37,7 +37,7 @@ export default {
       <RouterLink to="/system" v-if="estaLogeado">System  |</RouterLink>
       <!-- <RouterLink to="/shopping">Shopping Cart (Cantidad: {{ getLenghtProducts }})</RouterLink> -->
       Usuario: {{this.usuario.email}}
-      <ion-button v-if="estaLogeado" @click="functionLogout">Logout</ion-button>
+      <ion-button v-if="estaLogeado" @click="functionLogout()">Logout</ion-button>
     </ion-header>
     <ion-router-outlet />
   </ion-app>

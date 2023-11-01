@@ -1,12 +1,36 @@
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+import {
+  IonPage,
+  IonContent,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonThumbnail
+} from "@ionic/vue";
 import { userStore } from "../../stores/userStore";
 
 import { storeToRefs } from "pinia";
 import { vehiculoStore } from "../../stores/vehiculoStore";
 
 export default {
-  components: { IonPage, IonContent },
+    components: {
+    IonPage,
+    IonContent,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonThumbnail
+  },
   setup() {
     const store2 = vehiculoStore();
     const { getVehiculos } = storeToRefs(store2);
@@ -29,17 +53,15 @@ export default {
 <template>
   <ion-page>
     <ion-content>
-      <h2>Flota de vehiculos</h2>
+      <br>
+      <br>
+      <br>
       <RouterLink v-if="puedeVerAdd()" to="/vehiculos/add"
         >Añadir vehiculo</RouterLink
       >
-      <p v-for="auto in getVehiculos" :key="auto.gid">
-        {{ auto.nombre }}
-      </p>
       <ion-card>
     <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>Flota de vehiculos</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-list>

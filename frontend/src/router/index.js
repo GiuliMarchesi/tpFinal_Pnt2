@@ -19,7 +19,7 @@ const router = createRouter({
       path: '/system',
       name: 'systemview',
       component: SystemView,
-      meta: { RequireAuth: true }
+      meta: { RequireAuth: true, RequireAdmin: true }
     },
     {
       path: '/login',
@@ -29,24 +29,26 @@ const router = createRouter({
     {
       path: '/viajes',
       name: 'Viajes',
-      component: ViajesView
+      component: ViajesView,
+      meta: { RequireAuth: true, RequireAdmin: true }
     },
     {
       path: '/vehiculos',
       name: 'Vehiculos',
-      component: VehiculosView
+      component: VehiculosView,
+      meta: { RequireAuth: true }
     },
     {
       path: '/vehiculos/add',
       name: 'Añadir Vehiculos',
       component: VehiculosAddView,
-      meta: { RequireAdmin: true }
+      meta: { RequireAuth: true, RequireAdmin: true }
     },
     {
       path: '/choferes',
       name: 'Choferes',
       component: ChoferesView,
-      meta: { RequireAdmin: true }
+      meta: { RequireAuth: true, RequireAdmin: true }
     }
   ]
 })
@@ -56,11 +58,9 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.RequireAuth) && !usuarioLog) {
     next('/')
   }
-  if(usuarioLog){
-    const userRol = JSON.parse(usuarioLog).rol
-    if (to.matched.some(r => r.meta.RequireAdmin) && userRol != "admin") {
-      next('/')
-    }
+  const userRol = JSON.parse(usuarioLog || "{}")?.rol
+  if (to.matched.some(r => r.meta.RequireAdmin) && userRol != "admin") {
+    next('/')
   }
   next()
 })
