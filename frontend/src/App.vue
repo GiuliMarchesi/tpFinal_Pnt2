@@ -32,7 +32,7 @@ export default {
       <RouterLink to="/">Home  |</RouterLink>
       <RouterLink to="/login" v-if="!estaLogeado">Login  |</RouterLink>
       <RouterLink to="/vehiculos">Vehiculos  |</RouterLink>
-      <RouterLink to="/choferes">Choferes  |</RouterLink>
+      <RouterLink to="/choferes" v-if="estaLogeado">Choferes  |</RouterLink>
       <RouterLink to="/viajes">Viajes  |</RouterLink>
       <RouterLink to="/system" v-if="estaLogeado">System  |</RouterLink>
       <!-- <RouterLink to="/shopping">Shopping Cart (Cantidad: {{ getLenghtProducts }})</RouterLink> -->
