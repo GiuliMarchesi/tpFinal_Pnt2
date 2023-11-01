@@ -172,7 +172,10 @@ app.get("/viajes", (_req, res) => {
 });
 
 app.post("/viajes", (req, res) => {
-  const { origen, destino, choferId, autoId, precio } = req.body;
+  if (!req.body.viaje) {
+    return res.status(400).json({ message: 'Faltan campos requeridos en la creción del viaje' });
+  }
+  const { origen, destino, choferId, autoId, precio } = req.body.viaje;
   const lastId = viajes.length > 0 ? viajes[viajes.length - 1].id : 0;
   const newId = lastId + 1;
   if (origen && destino && choferId && autoId && precio) {
