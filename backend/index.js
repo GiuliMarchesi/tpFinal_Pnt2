@@ -10,7 +10,11 @@ const port = 3000
 app.get('/ping', (req, res) => {
   res.send('pong')
 })
-const lista = [{ id: 100, name: 'Charly' }, { id: 200, name: 'Jhon' }]
+const rolAdmin = "admin"
+const rolChofer = "chofer"
+
+const lista = [{ id: 1, name: 'Charly' }, { id: 200, name: 'Jhon' }]
+
 const autos = [
   {
     "id": 16598339,
@@ -34,6 +38,10 @@ const autos = [
   }
 ]
 
+const users = [
+  { email: "admin@admin.com", password: "1234", 'rol': rolAdmin },
+  { email: "tset@test.com", password: "1234", 'rol': rolChofer },
+]
 app.get('/lista', (req, res) => {
   if (req.headers['authorization'] !== undefined) {
     const bearerToken = req.headers['authorization'];
@@ -94,15 +102,6 @@ app.put('/lista/:id', (req, res) => {
   // falta manejo de errores
   // res.status(404).json({message:'error'})
 })
-
-const rolAdmin = "admin"
-const rolChofer = "chofer"
-
-const users = [
-  { email: "admin@admin.com", password: "1234", 'rol': rolAdmin },
-  { email: "tset@test.com", password: "1234", 'rol': rolChofer },
-]
-
 
 app.post('/login', (req, res) => {
   if (req.body) {

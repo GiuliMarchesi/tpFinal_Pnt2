@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router'
 import HomeView from '../views/HomeView.vue'
 import SystemView from '../views/SystemView.vue'
-import ShoppingCart from '../views/ShoppingCart.vue'
+import ViajesView from '../views/ViajesView.vue'
 import LoginView from '../views/LoginView.vue'
 import VehiculosView from '../views/Vehiculos/VehiculosView.vue';
 import VehiculosAddView from '../views/Vehiculos/VehiculosAddView.vue';
@@ -27,9 +27,9 @@ const router = createRouter({
       component: LoginView
     },
     {
-      path: '/shopping',
-      name: 'shopping',
-      component: ShoppingCart
+      path: '/viajes',
+      name: 'Viajes',
+      component: ViajesView
     },
     {
       path: '/vehiculos',
