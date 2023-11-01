@@ -44,7 +44,7 @@ const users = [
   { id: 2, email: "tset@test.com", password: contraseniaDefault, 'rol': rolChofer, choferId: 1 },
 ]
 
-const viaje = [
+const viajes = [
   {
     id: 1,
     origen: "Avenida Falsa 123",
@@ -159,4 +159,34 @@ app.get('/autos', (req, res) => {
 
 app.listen(port, function () {
   console.log("Server is running on port " + port);
+});
+
+app.get("/viajes", (_req, res) => {
+  const viajesConIncludes = viajes.map((viaje) => {
+    const auto = autos.find((auto) => auto.id === viaje.autoId);
+    const chofer = lista.find((chofer) => chofer.id === viaje.choferId);
+    return { ...viaje, auto, chofer };
+
+  })
+  res.json(viajesConIncludes)
+});
+
+app.post("/viajes", (req, res) => {
+  const { origen, destino, choferId, autoId, precio } = req.body;
+  const lastId = viajes.length > 0 ? viajes[viajes.length - 1].id : 0;
+  const newId = lastId + 1;
+  if (origen && destino && choferId && autoId && precio) {
+    const newViaje = {
+      id: newId,
+      origen,
+      destino,
+      choferId,
+      autoId,
+      precio
+    };
+    viajes.push(newViaje);
+    res.status(200).json({ message: 'OK' });
+  } else {
+    res.status(400).json({ message: 'Faltan campos requeridos en la creción del viaje' });
+  }
 });
