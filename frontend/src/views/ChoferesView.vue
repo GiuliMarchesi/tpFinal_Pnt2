@@ -23,9 +23,17 @@ export default {
       }
     },
     async saveData() {
+      if (!this.person.nombre || !this.person.apellido || !this.person.dni) {
+        this.errorMessage = "Debe completar todos los campos correctamente";
+        return;
+      }
       try {
         await choferService.saveData(this.person);
         await this.loadData();
+        this.person.nombre = "";
+        this.person.apellido = "";
+        this.person.dni = "";
+        this.errorMessage = "";
       } catch (e) {
         console.log(e);
         this.errorMessage = e;
@@ -56,7 +64,7 @@ export default {
 <template>
   <ion-page>
     <ion-content class="ion-padding">
-      <h2 class="ion-text-center" >Listado de Choferes</h2>
+      <h2 class="ion-text-center">Listado de Choferes</h2>
       <ion-list>
         <ion-item class="header-choferes">
           <ion-label>ID</ion-label>
@@ -99,11 +107,13 @@ export default {
             v-model="person.dni"
             label="DNI"
             placeholder="DNI del chofer"
+            @input="validateDNI"
+            type="number"
           ></ion-input>
         </ion-item>
       </ion-list>
       <ion-button @click="saveData">Agregar</ion-button>
-      <ion-button @click="loadData">Cargar</ion-button>
+      <!-- <ion-button @click="loadData">Cargar</ion-button> -->
       <br />
       {{ errorMessage }}
     </ion-content>
