@@ -102,7 +102,12 @@ app.post('/choferes', (req, res) => {
 
   app.delete('/choferes/:id', (req, res) => {
     const index = choferes.findIndex(e => e.id == req.params.id);
+    const indexUser = users.findIndex(u => u.choferId == req.params.id);
+    if (index < 0 || indexUser < 0){
+      return res.status(404).json({ message: 'chofer no encontrado' })
+    }
     choferes.splice(index, 1)
+    users.splice(indexUser,1)
     res.status(200).json({ message: 'ok' })
   })
 
