@@ -169,7 +169,7 @@ app.listen(port, function () {
 app.get("/viajes", (_req, res) => {
   const viajesConIncludes = viajes.map((viaje) => {
     const auto = autos.find((auto) => auto.id === viaje.autoId);
-    const chofer = lista.find((chofer) => chofer.id === viaje.choferId);
+    const chofer = choferes.find((chofer) => chofer.id === viaje.choferId);
     return { ...viaje, auto, chofer };
 
   })
