@@ -19,7 +19,7 @@ const router = createRouter({
       path: '/system',
       name: 'systemview',
       component: SystemView,
-      meta: { RequireAuth: true, RequireAdmin: true }
+      meta: { RequireAdmin: true }
     },
     {
       path: '/login',
@@ -30,7 +30,7 @@ const router = createRouter({
       path: '/viajes',
       name: 'Viajes',
       component: ViajesView,
-      meta: { RequireAuth: true, RequireAdmin: true }
+      meta: { RequireAuth: true}
     },
     {
       path: '/vehiculos',
@@ -42,13 +42,13 @@ const router = createRouter({
       path: '/vehiculos/add',
       name: 'Añadir Vehiculos',
       component: VehiculosAddView,
-      meta: { RequireAuth: true, RequireAdmin: true }
+      meta: { RequireAdmin: true }
     },
     {
       path: '/choferes',
       name: 'Choferes',
       component: ChoferesView,
-      meta: { RequireAuth: true, RequireAdmin: true }
+      meta: {  RequireAdmin: true }
     }
   ]
 })

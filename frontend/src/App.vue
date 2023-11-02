@@ -12,10 +12,10 @@ export default {
     const { addToCar, getProducts, getLenghtProducts } = storeToRefs(storeShopping);
 
     const store = userStore();
-    const { usuario, estaLogeado } = storeToRefs(store);
+    const { usuario, estaLogeado, esAdmin } = storeToRefs(store);
     const { logout } = store;
 
-    return { addToCar , getProducts, getLenghtProducts, usuario, estaLogeado, logout};
+    return { addToCar , getProducts, getLenghtProducts, usuario, estaLogeado, esAdmin, logout};
   },methods: {
     functionLogout(){
       this.logout();
@@ -32,9 +32,9 @@ export default {
       <RouterLink to="/">Home  |</RouterLink>
       <RouterLink to="/login" v-if="!estaLogeado">Login  |</RouterLink>
       <RouterLink to="/vehiculos">Vehiculos  |</RouterLink>
-      <RouterLink to="/choferes" v-if="estaLogeado">Choferes  |</RouterLink>
-      <RouterLink to="/viajes">Viajes  |</RouterLink>
-      <RouterLink to="/system" v-if="estaLogeado">System  |</RouterLink>
+      <RouterLink to="/choferes" v-if="estaLogeado && esAdmin">Choferes  |</RouterLink>
+      <RouterLink to="/viajes" v-if="estaLogeado" >Viajes  |</RouterLink>
+      <RouterLink to="/system" v-if="estaLogeado && esAdmin">System  |</RouterLink>
       <!-- <RouterLink to="/shopping">Shopping Cart (Cantidad: {{ getLenghtProducts }})</RouterLink> -->
       Usuario: {{this.usuario.email}}
       <ion-button v-if="estaLogeado" @click="functionLogout()">Logout</ion-button>
