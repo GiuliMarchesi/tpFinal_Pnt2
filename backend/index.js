@@ -14,10 +14,10 @@ const rolAdmin = "admin"
 const rolChofer = "chofer"
 
 const choferes = [
-  { id: 1, nombre: 'José', apellido: 'Perez', dni: '31313131', email:'pepito@hotmail.com' }, 
-  { id: 2, nombre: 'Marcelo', apellido: 'Gallardo', dni: '09122018', email: 'marcelo.gallardo@hotmail.com' },
-  { id: 3, nombre: 'Maria', apellido: 'Gomez', dni: '42424242', email: 'maria.gomez@hotmail.com' },
-  { id: 4, nombre: 'Laura', apellido: 'Martinez', dni: '64646464', email: 'laura.martinez@hotmail.com' },
+  { id: 1, nombre: 'Facundo', apellido: 'Costa', dni: '39466144' }, 
+  { id: 2, nombre: 'Marcelo', apellido: 'Gallardo', dni: '09122018'},
+  { id: 3, nombre: 'Ezequiel', apellido: 'Gatica', dni: '42424242'},
+  { id: 4, nombre: 'Laura', apellido: 'Martinez', dni: '64646464'},
 ]
 
 const autos = [
@@ -46,7 +46,10 @@ const contraseniaDefault = "1234";
 
 const users = [
   { id: 1, email: "admin@admin.com", password: contraseniaDefault, 'rol': rolAdmin },
-  { id: 2, email: "tset@test.com", password: contraseniaDefault, 'rol': rolChofer, choferId: 1 },
+  { id: 2, email: "facundo@chofer.com", password: contraseniaDefault, 'rol': rolChofer, choferId: 1 },
+  { id: 3, email: "marcelo@chofer.com", password: contraseniaDefault, 'rol': rolChofer, choferId: 2 },
+  { id: 4, email: "ezequiel@chofer.com", password: contraseniaDefault, 'rol': rolChofer, choferId: 3 },
+  { id: 5, email: "laura@chofer.com", password: contraseniaDefault, 'rol': rolChofer, choferId: 4 }
 ]
 
 const viajes = [
@@ -61,20 +64,11 @@ const viajes = [
 ]
 
 app.get('/choferes', (req, res) => {
-  if (req.headers['authorization'] !== undefined) {
-    const bearerToken = req.headers['authorization'];
-    const bearer = bearerToken.split(' ');
-    const token = bearer[1];
-    jsonwebtoken.verify(token, 'clave_secreta', (err, payload) => {
-      if (err) {
-        res.sendStatus(401);
-      } else {
-        res.json(choferes);
-      }
-    })
-  } else {
-    res.sendStatus(401);
-  }
+  const choferesConInclude = choferes.map((chofer)=>{
+    const usuario = users.find((user)=>user.choferId == chofer.id)
+    return {...chofer,user:usuario}
+  })
+  res.json(choferesConInclude);
 })
 
 
@@ -89,7 +83,6 @@ app.post('/choferes', (req, res) => {
     nombre,
     apellido,
     dni,
-    email,
   };
   // Agrega el nuevo elemento a la lista
   choferes.push(newChofer);
@@ -108,11 +101,11 @@ app.post('/choferes', (req, res) => {
 
 
   app.delete('/choferes/:id', (req, res) => {
-
     const index = choferes.findIndex(e => e.id == req.params.id);
     choferes.splice(index, 1)
     res.status(200).json({ message: 'ok' })
   })
+
   app.put('/choferes/:id', (req, res) => {
     const idToUpdate = req.params.id;
     const updatedData = req.body;

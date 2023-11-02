@@ -34,7 +34,7 @@ export default {
       <RouterLink to="/vehiculos">Vehiculos  |</RouterLink>
       <RouterLink to="/choferes" v-if="estaLogeado && esAdmin">Choferes  |</RouterLink>
       <RouterLink to="/viajes" v-if="estaLogeado" >Viajes  |</RouterLink>
-      <RouterLink to="/system" v-if="estaLogeado && esAdmin">System  |</RouterLink>
+      <RouterLink to="/reportes" v-if="estaLogeado && esAdmin">Reportes  |</RouterLink>
       <!-- <RouterLink to="/shopping">Shopping Cart (Cantidad: {{ getLenghtProducts }})</RouterLink> -->
       Usuario: {{this.usuario.email}}
       <ion-button v-if="estaLogeado" @click="functionLogout()">Logout</ion-button>

@@ -22,7 +22,7 @@ export default {
       const user = await this.login(this.user);
       console.log(this.estaLogeado);
       if(this.estaLogeado) {
-        this.$router.push("/system")
+        this.$router.push("/")
       } else {
         // redirigir a otra pagina
       }

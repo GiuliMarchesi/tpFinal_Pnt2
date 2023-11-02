@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router'
 import HomeView from '../views/HomeView.vue'
-import SystemView from '../views/SystemView.vue'
+import ReportesView from '../views/ReportesView.vue'
 import ViajesView from '../views/ViajesView.vue'
 import LoginView from '../views/LoginView.vue'
 import VehiculosView from '../views/Vehiculos/VehiculosView.vue';
@@ -16,10 +16,10 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/system',
-      name: 'systemview',
-      component: SystemView,
-      meta: { RequireAdmin: true }
+      path: '/reportes',
+      name: 'reportesview',
+      component: ReportesView,
+      meta: { RequireAuth: true, RequireAdmin: true }
     },
     {
       path: '/login',

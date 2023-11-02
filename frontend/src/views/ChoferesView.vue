@@ -91,7 +91,7 @@ export default {
           <ion-label>Nombre</ion-label>
           <ion-label>Apellido</ion-label>
           <ion-label>DNI</ion-label>
-          <ion-label>Usuario</ion-label>
+          <ion-label>Email</ion-label>
           <ion-label>Acciones</ion-label>
         </ion-item>
         <ion-item v-for="e in choferes" :key="e.id">
@@ -99,7 +99,7 @@ export default {
           <ion-label>{{ e.nombre }}</ion-label>
           <ion-label>{{ e.apellido }}</ion-label>
           <ion-label>{{ e.dni }}</ion-label>
-          <ion-label>{{ e.email }}</ion-label>
+          <ion-label>{{ e.user.email }}</ion-label>
           <ion-button color="danger" @click="deleteData(e.id)"
             >Eliminar</ion-button
           >

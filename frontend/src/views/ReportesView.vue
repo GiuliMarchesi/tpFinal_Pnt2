@@ -1,14 +1,10 @@
 <script>
 import {IonPage,IonContent,IonList,IonInput,IonButton} from '@ionic/vue'
-import axios from 'axios'
-import listaService from '../service/listaService'
 export default {
   components: {IonPage, IonContent, IonList, IonInput, IonButton},
   data() {
     return {
-        lista: [],
-        person: {},
-        errorMessage: ''
+      
     }
   },
   mounted() {
@@ -61,16 +57,9 @@ export default {
 <template>
   <ion-page>
     <ion-content>
-        <h2>System</h2>
-        <ion-list v-for="e in lista" :key="e.id">
-            {{ e.id }} {{ e.name }}
-            <ion-button @click="deleteData(e.id)">Delete name from the list</ion-button>
-            <ion-button @click="putData(e.id)">Replace from the list</ion-button>
-        </ion-list>
-        <ion-input v-model="person.id" label="id" placeholder="input an id"></ion-input>
-        <ion-input v-model="person.name" label="Name" placeholder="input a name"></ion-input>
-        <ion-button @click="saveData">Add Name to list</ion-button>
-        <ion-button @click="loadData">Load Data</ion-button><br/>
+        <h2>Reportes</h2>
+
+
         {{ errorMessage }}
     </ion-content>
   </ion-page>
