@@ -13,7 +13,12 @@ app.get('/ping', (req, res) => {
 const rolAdmin = "admin"
 const rolChofer = "chofer"
 
-const lista = [{ id: 1, name: 'Charly' }, { id: 200, name: 'Jhon' }]
+const choferes = [
+  { id: 1, nombre: 'José', apellido: 'Perez', dni: '31313131', email:'pepito@hotmail.com' }, 
+  { id: 2, nombre: 'Marcelo', apellido: 'Gallardo', dni: '09122018', email: 'marcelo.gallardo@hotmail.com' },
+  { id: 3, nombre: 'Maria', apellido: 'Gomez', dni: '42424242', email: 'maria.gomez@hotmail.com' },
+  { id: 4, nombre: 'Laura', apellido: 'Martinez', dni: '64646464', email: 'laura.martinez@hotmail.com' },
+]
 
 const autos = [
   {
@@ -55,7 +60,7 @@ const viajes = [
   }
 ]
 
-app.get('/lista', (req, res) => {
+app.get('/choferes', (req, res) => {
   if (req.headers['authorization'] !== undefined) {
     const bearerToken = req.headers['authorization'];
     const bearer = bearerToken.split(' ');
@@ -64,57 +69,63 @@ app.get('/lista', (req, res) => {
       if (err) {
         res.sendStatus(401);
       } else {
-        res.json(lista);
+        res.json(choferes);
       }
     })
   } else {
     res.sendStatus(401);
   }
 })
-// app.post('/lista', (req,res) =>{
-//     //console.log(req.body);
-//     lista.push(req.body)
-//     res.status(200).json({message:'ok'})
-// })
 
-app.post('/lista', (req, res) => {
-  // Genera un nuevo ID basado en el último ID de la lista
-  const lastId = lista.length > 0 ? lista[lista.length - 1].id : 0;
-  const newId = lastId + 1;
-  const { nombre, apellido, dni } = req.body;
+
+app.post('/choferes', (req, res) => {
+  // Genera unchoferes nuevo ID basado en el último ID de la lista
+  const lastId = choferes.length > 0 ? choferes[choferes.length - 1].id : 0;
+  const newId = Number(lastId) + 1;
+  const { nombre, apellido, dni, email } = req.body;
   // Crea un nuevo objeto con el ID autoincrementado
   const newChofer = {
     id: newId,
     nombre,
     apellido,
     dni,
+    email,
   };
   // Agrega el nuevo elemento a la lista
-  lista.push(newChofer);
-  res.status(200).json({ message: 'OK' });
-});
+  choferes.push(newChofer);
+  const newUserId = users.length + 1;
+  const newUser = {
+    id: newUserId,
+    email,
+    password: contraseniaDefault,
+    rol: rolChofer,
+    choferId: newId, // Vincula el chofer al usuario
+  };
+    // Agrega el nuevo usuario a la lista de usuarios
+    users.push(newUser);
+    res.status(200).json({ message: 'OK' });
+  });
 
 
-app.delete('/lista/:id', (req, res) => {
-  // console.log(req.params.id);
-  // lista = lista.filter(e=>e.id!=req.params.id)
-  const index = lista.findIndex(e => e.id == req.params.id);
-  lista.splice(index, 1)
+  app.delete('/choferes/:id', (req, res) => {
 
-  // lista.pop(index)
-  res.status(200).json({ message: 'ok' })
-})
-
-
-app.put('/lista/:id', (req, res) => {
-  //console.log(req.body);
-  //console.log(req.params.id);
-  const index = lista.findIndex(e => e.id == req.params.id);
-  lista[index] = req.body
-  res.status(200).json({ message: 'ok' })
-  // falta manejo de errores
-  // res.status(404).json({message:'error'})
-})
+    const index = choferes.findIndex(e => e.id == req.params.id);
+    choferes.splice(index, 1)
+    res.status(200).json({ message: 'ok' })
+  })
+  app.put('/choferes/:id', (req, res) => {
+    const idToUpdate = req.params.id;
+    const updatedData = req.body;
+    const index = choferes.findIndex(e => e.id == idToUpdate);
+    if (index !== -1) {
+      // Conserva el ID original en el objeto actualizado
+      updatedData.id = idToUpdate;
+      choferes[index] = updatedData;
+      res.status(200).json({ message: 'ok' });
+    } else {
+      res.status(404).json({ message: 'ID no encontrado' });
+    }
+  });
 
 app.post('/login', (req, res) => {
   if (req.body) {
