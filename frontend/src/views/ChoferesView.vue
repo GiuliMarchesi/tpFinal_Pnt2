@@ -5,7 +5,7 @@ export default {
   components: { IonPage, IonContent, IonList, IonInput, IonButton },
   data() {
     return {
-      lista: [],
+      choferes: [],
       person: {},
       errorMessage: "",
     };
@@ -14,26 +14,42 @@ export default {
     this.loadData();
   },
   methods: {
+    limpiarCampos() {
+      this.person.nombre = "";
+      this.person.apellido = "";
+      this.person.dni = "";
+      this.person.email = "";
+    },
+
+    comprobarCampos() {
+      if (
+        !this.person.nombre ||
+        !this.person.apellido ||
+        !this.person.dni ||
+        !this.person.email
+      ) {
+        this.errorMessage = "Debe completar todos los campos correctamente";
+        return false;
+      }
+      return true;
+    },
+    
     async loadData() {
       try {
-        this.lista = await choferService.loadData();
+        this.choferes = await choferService.loadData();
       } catch (e) {
         console.log(e);
         this.errorMessage = "Se produjo un error";
       }
     },
     async saveData() {
-      if (!this.person.nombre || !this.person.apellido || !this.person.dni) {
-        this.errorMessage = "Debe completar todos los campos correctamente";
-        return;
-      }
+       if (!this.comprobarCampos()) {
+      return; 
+    }
       try {
         await choferService.saveData(this.person);
         await this.loadData();
-        this.person.nombre = "";
-        this.person.apellido = "";
-        this.person.dni = "";
-        this.errorMessage = "";
+        this.limpiarCampos();
       } catch (e) {
         console.log(e);
         this.errorMessage = e;
@@ -49,9 +65,13 @@ export default {
       }
     },
     async putData(id) {
+        if (!this.comprobarCampos()) {
+      return; 
+    }
       try {
         await choferService.putData(id, this.person);
         await this.loadData();
+        this.limpiarCampos();
       } catch (e) {
         console.log(e);
         this.errorMessage = "Se produjo un error";
@@ -71,13 +91,15 @@ export default {
           <ion-label>Nombre</ion-label>
           <ion-label>Apellido</ion-label>
           <ion-label>DNI</ion-label>
+          <ion-label>Usuario</ion-label>
           <ion-label>Acciones</ion-label>
         </ion-item>
-        <ion-item v-for="e in lista" :key="e.id">
+        <ion-item v-for="e in choferes" :key="e.id">
           <ion-label>{{ e.id }}</ion-label>
           <ion-label>{{ e.nombre }}</ion-label>
           <ion-label>{{ e.apellido }}</ion-label>
           <ion-label>{{ e.dni }}</ion-label>
+          <ion-label>{{ e.email }}</ion-label>
           <ion-button color="danger" @click="deleteData(e.id)"
             >Eliminar</ion-button
           >
@@ -107,8 +129,14 @@ export default {
             v-model="person.dni"
             label="DNI"
             placeholder="DNI del chofer"
-            @input="validateDNI"
             type="number"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            v-model="person.email"
+            label="Email"
+            placeholder="usuario del chofer"
           ></ion-input>
         </ion-item>
       </ion-list>

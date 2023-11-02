@@ -1,6 +1,6 @@
 import axios from 'axios'
 const apiClient = axios.create({
-    baseURL: 'http://localhost:3000/lista',
+    baseURL: 'http://localhost:3000/choferes',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
