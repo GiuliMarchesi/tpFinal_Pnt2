@@ -37,7 +37,7 @@ export default {
       <RouterLink to="/system" v-if="estaLogeado && esAdmin">System  |</RouterLink>
       <!-- <RouterLink to="/shopping">Shopping Cart (Cantidad: {{ getLenghtProducts }})</RouterLink> -->
       Usuario: {{this.usuario.email}}
-      <ion-button v-if="estaLogeado" @click="functionLogout()">Logout</ion-button>
+      <ion-button color="danger" v-if="estaLogeado" @click="functionLogout()">Logout</ion-button>
     </ion-header>
     <ion-router-outlet />
   </ion-app>
