@@ -130,8 +130,8 @@ app.post('/login', (req, res) => {
     //Verificar estructura
     const user = req.body;
     const userDbReal = users.find(u => u.email == user.email && u.password == user.password)
-    const userDb = {...userDbReal}
-    if (userDb) {
+    if (userDbReal) {
+      const userDb = {...userDbReal}
       delete userDb.password
       const userRol = userDb["rol"];
       const token =
