@@ -56,13 +56,13 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const usuarioLog = localStorage.getItem('usuario')
   if (to.matched.some(r => r.meta.RequireAuth) && !usuarioLog) {
-    next('/')
+    return next('/')
   }
   const userRol = JSON.parse(usuarioLog || "{}")?.rol
   if (to.matched.some(r => r.meta.RequireAdmin) && userRol != "admin") {
-    next('/')
+    return next('/')
   }
-  next()
+  return next()
 })
 
 export default router
