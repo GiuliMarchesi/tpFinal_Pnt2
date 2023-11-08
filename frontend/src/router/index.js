@@ -30,25 +30,24 @@ const router = createRouter({
       path: '/viajes',
       name: 'Viajes',
       component: ViajesView,
-      meta: { RequireAuth: true}
+      meta: { RequireAuth: true }
     },
     {
       path: '/vehiculos',
       name: 'Vehiculos',
-      component: VehiculosView,
-      meta: { RequireAuth: true }
+      component: VehiculosView
     },
     {
       path: '/vehiculos/add',
       name: 'Añadir Vehiculos',
       component: VehiculosAddView,
-      meta: { RequireAdmin: true }
+      meta: { RequireAuth: true, RequireAdmin: true }
     },
     {
       path: '/choferes',
       name: 'Choferes',
       component: ChoferesView,
-      meta: {  RequireAdmin: true }
+      meta: { RequireAuth: true, RequireAdmin: true }
     }
   ]
 })
