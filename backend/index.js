@@ -210,6 +210,84 @@ app.delete("/viajes/:id", (req, res) => {
   res.status(200).json({ message: 'OK' });
 });
 
+app.get("/reportes", (_req, res) => {
+  const cantidadUsuarios = users.length;
+  const cantidadChoferes = choferes.length;
+  const cantidadViajes = viajes.length;
+  const cantidadVehiculos = autos.length;
+  const recaudacionViajes = viajes.reduce((acc, viaje) => acc + viaje.precio, 0);
+  const viajesPorChofer = viajes.reduce((acc, viaje) => {
+    if (acc[viaje.choferId]) {
+      acc[viaje.choferId] += 1;
+    } else {
+      acc[viaje.choferId] = 1;
+    }
+    return acc;
+  }, {});
+
+  const recaudacionPorChofer = viajes.reduce((acc, viaje) => {
+    if (acc[viaje.choferId]) {
+      acc[viaje.choferId] += viaje.precio;
+    } else {
+      acc[viaje.choferId] = viaje.precio;
+    }
+    return acc;
+  }, {});
+
+  const choferesConViajes = choferes.map((chofer) => {
+    const viajes = viajesPorChofer[chofer.id] || 0;
+    if (viajes === 0) {
+      return null;
+    }
+    const recaudacion = recaudacionPorChofer[chofer.id] || 0;
+
+    return { ...chofer, viajes, recaudacion };
+  }).filter((chofer) => chofer !== null);
+
+  const promedioRecaudacionViajes = recaudacionViajes / cantidadViajes;
+
+  const viajesPorVehiculo = viajes.reduce((acc, viaje) => {
+    if (acc[viaje.autoId]) {
+      acc[viaje.autoId] += 1;
+    } else {
+      acc[viaje.autoId] = 1;
+    }
+    return acc;
+  }, {});
+
+  const recaudacionPorVehiculo = viajes.reduce((acc, viaje) => {
+    if (acc[viaje.autoId]) {
+      acc[viaje.autoId] += viaje.precio;
+    } else {
+      acc[viaje.autoId] = viaje.precio;
+    }
+    return acc;
+  }, {});
+
+  const vehiculosConViajes = autos.map((auto) => {
+    const viajes = viajesPorVehiculo[auto.id] || 0;
+    if (viajes === 0) {
+      return null;
+    }
+    const recaudacion = recaudacionPorVehiculo[auto.id] || 0;
+    return { ...auto, viajes, recaudacion };
+  }).filter((auto) => auto !== null);
+
+  const reporte = {
+    cantidadUsuarios,
+    cantidadChoferes,
+    cantidadViajes,
+    cantidadVehiculos,
+    recaudacionViajes,
+    choferesConViajes,
+    promedioRecaudacionViajes,
+    vehiculosConViajes
+  };
+
+  return res.json(reporte);
+});
+
+
 
 app.listen(port, function () {
   console.log("Server is running on port " + port);
