@@ -11,6 +11,7 @@ import {
 } from "@ionic/vue";
 import axios from "axios";
 import { vehiculoStore } from "../../stores/vehiculoStore";
+import vehiculosService from "../../service/vehiculosService";
 
 export default {
   components: {
@@ -33,14 +34,7 @@ export default {
       if (!this.busqueda) {
         alert("Ingrese algo antes de buscar");
       }
-      const { data: autos } = await axios.get(
-        `http://localhost:3000/autos/search`,
-        {
-          params: {
-            q: this.busqueda,
-          },
-        }
-      );
+      const autos = await vehiculosService.searchData(this.busqueda);
 
       if (autos.length > 0) {
         this.autos = autos;

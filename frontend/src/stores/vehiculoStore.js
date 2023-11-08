@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from "axios"
+import vehiculosService from "../service/vehiculosService";
 
 export const vehiculoStore = defineStore("vehiculo", {
   state: () => {
@@ -9,15 +9,11 @@ export const vehiculoStore = defineStore("vehiculo", {
   },
   actions: {
     async fetchVehiculos() {
-      const { data: autos } = await axios.get(
-        `http://localhost:3000/autos`
-      );
+      const autos = await vehiculosService.loadData();
       this.autos = autos;
     },
     async addVehiculo(vehiculo) {
-      await axios.post(`http://localhost:3000/autos`, {
-        auto: vehiculo,
-      });
+      await vehiculosService.saveData(vehiculo);
       await this.fetchVehiculos();
     },
   },

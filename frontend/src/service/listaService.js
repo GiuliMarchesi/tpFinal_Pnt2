@@ -8,6 +8,8 @@ const apiClient = axios.create({
     }
 })
 
+export { apiClient as listaService }
+
 export default {
     async loadData() {
         apiClient.defaults.headers.common['authorization'] =
