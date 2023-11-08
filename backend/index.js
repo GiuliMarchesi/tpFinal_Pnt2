@@ -14,10 +14,10 @@ const rolAdmin = "admin"
 const rolChofer = "chofer"
 
 const choferes = [
-  { id: 1, nombre: 'Facundo', apellido: 'Costa', dni: '39466144' }, 
-  { id: 2, nombre: 'Marcelo', apellido: 'Gallardo', dni: '09122018'},
-  { id: 3, nombre: 'Ezequiel', apellido: 'Gatica', dni: '42424242'},
-  { id: 4, nombre: 'Laura', apellido: 'Martinez', dni: '64646464'},
+  { id: 1, nombre: 'Facundo', apellido: 'Costa', dni: '39466144' },
+  { id: 2, nombre: 'Marcelo', apellido: 'Gallardo', dni: '09122018' },
+  { id: 3, nombre: 'Ezequiel', apellido: 'Gatica', dni: '42424242' },
+  { id: 4, nombre: 'Laura', apellido: 'Martinez', dni: '64646464' },
 ]
 
 const autos = [
@@ -64,9 +64,9 @@ const viajes = [
 ]
 
 app.get('/choferes', (req, res) => {
-  const choferesConInclude = choferes.map((chofer)=>{
-    const usuario = users.find((user)=>user.choferId == chofer.id)
-    return {...chofer,user:usuario}
+  const choferesConInclude = choferes.map((chofer) => {
+    const usuario = users.find((user) => user.choferId == chofer.id)
+    return { ...chofer, user: usuario }
   })
   res.json(choferesConInclude);
 })
@@ -94,36 +94,36 @@ app.post('/choferes', (req, res) => {
     rol: rolChofer,
     choferId: newId, // Vincula el chofer al usuario
   };
-    // Agrega el nuevo usuario a la lista de usuarios
-    users.push(newUser);
-    res.status(200).json({ message: 'OK' });
-  });
+  // Agrega el nuevo usuario a la lista de usuarios
+  users.push(newUser);
+  res.status(200).json({ message: 'OK' });
+});
 
 
-  app.delete('/choferes/:id', (req, res) => {
-    const index = choferes.findIndex(e => e.id == req.params.id);
-    const indexUser = users.findIndex(u => u.choferId == req.params.id);
-    if (index < 0 || indexUser < 0){
-      return res.status(404).json({ message: 'chofer no encontrado' })
-    }
-    choferes.splice(index, 1)
-    users.splice(indexUser,1)
-    res.status(200).json({ message: 'ok' })
-  })
+app.delete('/choferes/:id', (req, res) => {
+  const index = choferes.findIndex(e => e.id == req.params.id);
+  const indexUser = users.findIndex(u => u.choferId == req.params.id);
+  if (index < 0 || indexUser < 0) {
+    return res.status(404).json({ message: 'chofer no encontrado' })
+  }
+  choferes.splice(index, 1)
+  users.splice(indexUser, 1)
+  res.status(200).json({ message: 'ok' })
+})
 
-  app.put('/choferes/:id', (req, res) => {
-    const idToUpdate = req.params.id;
-    const updatedData = req.body;
-    const index = choferes.findIndex(e => e.id == idToUpdate);
-    if (index !== -1) {
-      // Conserva el ID original en el objeto actualizado
-      updatedData.id = idToUpdate;
-      choferes[index] = updatedData;
-      res.status(200).json({ message: 'ok' });
-    } else {
-      res.status(404).json({ message: 'ID no encontrado' });
-    }
-  });
+app.put('/choferes/:id', (req, res) => {
+  const idToUpdate = req.params.id;
+  const updatedData = req.body;
+  const index = choferes.findIndex(e => e.id == idToUpdate);
+  if (index !== -1) {
+    // Conserva el ID original en el objeto actualizado
+    updatedData.id = idToUpdate;
+    choferes[index] = updatedData;
+    res.status(200).json({ message: 'ok' });
+  } else {
+    res.status(404).json({ message: 'ID no encontrado' });
+  }
+});
 
 app.post('/login', (req, res) => {
   if (req.body) {
@@ -131,7 +131,7 @@ app.post('/login', (req, res) => {
     const user = req.body;
     const userDbReal = users.find(u => u.email == user.email && u.password == user.password)
     if (userDbReal) {
-      const userDb = {...userDbReal}
+      const userDb = { ...userDbReal }
       delete userDb.password
       const userRol = userDb["rol"];
       const token =
@@ -166,10 +166,6 @@ app.post("/autos", async (req, res) => {
 app.get('/autos', (req, res) => {
   res.json(autos)
 })
-
-app.listen(port, function () {
-  console.log("Server is running on port " + port);
-});
 
 app.get("/viajes", (_req, res) => {
   const viajesConIncludes = viajes.map((viaje) => {
@@ -214,3 +210,7 @@ app.delete("/viajes/:id", (req, res) => {
   res.status(200).json({ message: 'OK' });
 });
 
+
+app.listen(port, function () {
+  console.log("Server is running on port " + port);
+});
