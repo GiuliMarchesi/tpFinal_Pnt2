@@ -60,6 +60,14 @@ const viajes = [
     choferId: 1,
     autoId: 16354121,
     precio: 25000
+  },
+  {
+    id: 2,
+    origen: "Avenida Verdadera 111",
+    destino: "Boulevard CortaVida 333",
+    choferId: 2,
+    autoId: 71794,
+    precio: 5555
   }
 ]
 
