@@ -1,8 +1,8 @@
 <script>
-import { IonPage, IonContent, IonList, IonInput, IonButton } from "@ionic/vue";
+import { IonPage, IonContent, IonList, IonInput, IonButton, IonItem, IonLabel } from "@ionic/vue";
 import choferService from "../service/choferService";
 export default {
-  components: { IonPage, IonContent, IonList, IonInput, IonButton },
+  components: { IonPage, IonContent, IonList, IonInput, IonButton, IonItem, IonLabel  },
   data() {
     return {
       choferes: [],

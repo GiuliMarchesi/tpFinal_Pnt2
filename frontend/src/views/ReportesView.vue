@@ -36,7 +36,7 @@ export default {
             <ion-thumbnail slot="start">
               <img alt="Foto Vehiculo" :src="autos.foto" />
             </ion-thumbnail>
-            <ion-label>{{ autos.nombre }} realizo {{ autos.viajes }} recaudando {{ autos.recaudacion }}</ion-label>
+            <ion-label>{{ autos.nombre }} realizo {{ autos.viajes }} viaje/s recaudando {{ autos.recaudacion }} $</ion-label>
             </ion-item>
           </ion-list> 
         </ion-card-content>
