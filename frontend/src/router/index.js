@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router'
 import HomeView from '../views/HomeView.vue'
 import ReportesView from '../views/ReportesView.vue'
-import ViajesView from '../views/ViajesView.vue'
+import ViajesView from '../views/Viajes/ViajesView.vue'
+import ViajesAddView from '../views/Viajes/ViajesAddView.vue'
 import LoginView from '../views/LoginView.vue'
 import VehiculosView from '../views/Vehiculos/VehiculosView.vue';
 import VehiculosAddView from '../views/Vehiculos/VehiculosAddView.vue';
@@ -31,6 +32,12 @@ const router = createRouter({
       name: 'Viajes',
       component: ViajesView,
       meta: { RequireAuth: true }
+    },
+    {
+      path: '/viajes/add',
+      name: 'Añadir viajes',
+      component: ViajesAddView,
+      meta: { RequireAuth: true, RequireAdmin: true }
     },
     {
       path: '/vehiculos',

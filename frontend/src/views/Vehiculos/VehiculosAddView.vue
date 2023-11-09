@@ -8,6 +8,11 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonButton,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonThumbnail,
+  
 } from "@ionic/vue";
 import axios from "axios";
 import { vehiculoStore } from "../../stores/vehiculoStore";
@@ -23,6 +28,11 @@ export default {
     IonCardSubtitle,
     IonCardTitle,
     IonButton,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonThumbnail,
+    
   },
   setup() {
     const store2 = vehiculoStore();
