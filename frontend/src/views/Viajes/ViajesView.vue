@@ -27,12 +27,8 @@ export default {
 </script>
 
 <template>
-  <ion-page>
+  <ion-page class="page-content">
     <ion-content>
-      <br>
-      <br>
-      <br>
-
       <RouterLink v-if="puedeVerAdd()" to="/viajes/add">Añadir viaje</RouterLink>
       <h2>Agrege un viaje</h2>
       <ion-list>
@@ -57,5 +53,9 @@ export default {
     </ion-content>
   </ion-page>
 </template>
+<style scoped>
+.page-content {
+  margin-top: 80px;
+}
+</style>
 
-<style></style>

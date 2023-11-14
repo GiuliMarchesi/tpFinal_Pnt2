@@ -49,7 +49,7 @@ export default {
 </script>
 
 <template>
-  <ion-page>
+  <ion-page class="page-content">
     <ion-content>
       <h2>Reportes</h2>
       <ion-card>
@@ -124,4 +124,8 @@ export default {
   </ion-page>
 </template>
 
-<style></style>
+<style scoped>
+.page-content {
+  margin-top: 80px;
+}
+</style>

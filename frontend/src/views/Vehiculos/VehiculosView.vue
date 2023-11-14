@@ -51,31 +51,32 @@ export default {
 </script>
 
 <template>
-  <ion-page>
-    <ion-content>
-      <br>
-      <br>
-      <br>
+  <ion-page class="page-content">
+    <ion-content >
       <RouterLink v-if="puedeVerAdd()" to="/vehiculos/add"
         >Añadir vehiculo</RouterLink
       >
       <ion-card>
-    <ion-card-header>
-      <ion-card-title>Flota de vehiculos</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item v-for="auto in getVehiculos" :key="auto.gid">
-          <ion-thumbnail slot="start">
-            <img alt="Autito" :src=auto.foto />
-          </ion-thumbnail>
-          <ion-label>{{ auto.nombre }}</ion-label>
-        </ion-item> 
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+        <ion-card-header>
+          <ion-card-title>Flota de vehiculos</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item v-for="auto in getVehiculos" :key="auto.gid">
+              <ion-thumbnail slot="start">
+                <img alt="Autito" :src=auto.foto />
+              </ion-thumbnail>
+              <ion-label>{{ auto.nombre }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
     </ion-content>
   </ion-page>
 </template>
 
-<style></style>
+<style scoped>
+.page-content {
+  margin-top: 80px;
+}
+</style>

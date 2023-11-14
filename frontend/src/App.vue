@@ -25,18 +25,46 @@ export default {
 <template>
   <ion-app>
     <ion-header>
-      <RouterLink to="/">Home  |</RouterLink>
-      <RouterLink to="/login" v-if="!estaLogeado">Login  |</RouterLink>
-      <RouterLink to="/vehiculos">Vehiculos  |</RouterLink>
-      <RouterLink to="/choferes" v-if="estaLogeado && esAdmin">Choferes  |</RouterLink>
-      <RouterLink to="/viajes" v-if="estaLogeado" >Viajes  |</RouterLink>
-      <RouterLink to="/reportes" v-if="estaLogeado && esAdmin">Reportes  |</RouterLink>
-      Usuario: {{this.usuario.email}}
-      <ion-button color="danger" size="small" v-if="estaLogeado" @click="functionLogout()">Logout</ion-button>
+      <ion-toolbar class="ion-no-border">
+        <div class="ion-padding header-container">
+          <div class="header-links">
+            <RouterLink to="/">Home</RouterLink>
+            <RouterLink to="/login" v-if="!estaLogeado">Login</RouterLink>
+            <RouterLink to="/vehiculos">Vehiculos</RouterLink>
+            <RouterLink to="/choferes" v-if="estaLogeado && esAdmin">Choferes</RouterLink>
+            <RouterLink to="/viajes" v-if="estaLogeado">Viajes</RouterLink>
+            <RouterLink to="/reportes" v-if="estaLogeado && esAdmin">Reportes</RouterLink>
+          </div>
+
+          <div class="user-info">
+            Usuario: {{ usuario.email }}
+            <ion-button color="danger" size="small" v-if="estaLogeado" @click="functionLogout">
+              Logout
+            </ion-button>
+          </div>
+        </div>
+      </ion-toolbar>
     </ion-header>
+
     <ion-router-outlet />
   </ion-app>
 </template>
 
 <style scoped>
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
 </style>

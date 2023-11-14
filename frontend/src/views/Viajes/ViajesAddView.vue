@@ -71,11 +71,9 @@ export default {
 }
 </script>
 <template>
-    <ion-page>
+    <ion-page class="page-content">
         <ion-content>
             <ion-list>
-                <br>
-                <br>
                 <ion-item>
                     <ion-input v-model="viaje.origen" label="Origen" placeholder="Ingrese un Origen"></ion-input>
                 </ion-item>
@@ -102,3 +100,8 @@ export default {
         </ion-content>
     </ion-page>
 </template>
+<style scoped>
+.page-content {
+  margin-top: 80px;
+}
+</style>

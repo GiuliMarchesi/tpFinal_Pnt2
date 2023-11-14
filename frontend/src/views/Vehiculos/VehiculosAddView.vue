@@ -90,7 +90,7 @@ export default {
 </script>
 
 <template>
-  <ion-page>
+  <ion-page class="page-content">
     <ion-content>
       <h2>Añadir autos</h2>
       <form @submit.prevent="crearVehiculo" @reset.prevent="resetearBusqueda">
@@ -147,4 +147,8 @@ export default {
   </ion-page>
 </template>
 
-<style></style>
+<style scoped>
+.page-content {
+  margin-top: 80px;
+}
+</style>
