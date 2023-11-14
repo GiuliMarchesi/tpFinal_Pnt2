@@ -7,6 +7,8 @@ import LoginView from '../views/LoginView.vue'
 import VehiculosView from '../views/Vehiculos/VehiculosView.vue';
 import VehiculosAddView from '../views/Vehiculos/VehiculosAddView.vue';
 import ChoferesView from '../views/ChoferesView.vue';
+import Swal from 'sweetalert2/dist/sweetalert2';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,14 +63,47 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const usuarioLog = localStorage.getItem('usuario')
-  if (to.matched.some(r => r.meta.RequireAuth) && !usuarioLog) {
-    return next('/')
+  if (to.matched.some(r => r.meta.RequireAuth) || !usuarioLog) {
+    Swal.fire({
+      toast: true,
+      position: 'front',
+      showConfirmButton: true,
+      timer: 5000,
+      timerProgressBar: true,
+
+      icon: 'error',
+      title: 'Permiso denegado',
+      text: 'Se necesita estar logeado para acceder a esta sección.'
+    });
+    next({
+      name: 'login',
+      params: { nextUrl: to.fullPath }
+    });
   }
   const userRol = JSON.parse(usuarioLog || "{}")?.rol
   if (to.matched.some(r => r.meta.RequireAdmin) && userRol != "admin") {
-    return next('/')
+   
+    Swal.fire({
+      toast: true,
+      position: 'front',
+      showConfirmButton: true,
+      timer: 5000,
+      timerProgressBar: true,
+
+      icon: 'error',
+      title: 'Permiso denegado',
+      text: 'Se necesita ser administrador para acceder a esta sección.',
+     
+      
+    });
+    next({
+      name: 'login',
+      params: { nextUrl: to.fullPath }
+    });
   }
   return next()
+
+ 
 })
 
 export default router
