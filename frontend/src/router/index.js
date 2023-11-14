@@ -74,9 +74,11 @@ router.beforeEach((to, from, next) => {
       icon: 'error',
       title: 'Permiso denegado',
       text: 'Se necesita estar logeado para acceder a esta sección.'
-    }).then(() => {
-   
-      window.history.back();
+    }).then((result) => {
+      if (result.isConfirmed) {
+       
+        window.location = "login";
+       }
   });
     next({
       name: 'login',
@@ -98,9 +100,11 @@ router.beforeEach((to, from, next) => {
       text: 'Se necesita ser administrador para acceder a esta sección.',
      
       
-    }).then(() => {
-      // Redirect to the previous page
-      window.history.back();
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+        window.location = "/";
+       }
   });
     next({
       name: 'login',
