@@ -63,7 +63,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const usuarioLog = localStorage.getItem('usuario')
-  if (to.matched.some(r => r.meta.RequireAuth) || !usuarioLog) {
+  if (to.matched.some(r => r.meta.RequireAuth) && !usuarioLog) {
     Swal.fire({
       toast: true,
       position: 'front',
@@ -74,7 +74,10 @@ router.beforeEach((to, from, next) => {
       icon: 'error',
       title: 'Permiso denegado',
       text: 'Se necesita estar logeado para acceder a esta sección.'
-    });
+    }).then(() => {
+   
+      window.history.back();
+  });
     next({
       name: 'login',
       params: { nextUrl: to.fullPath }
@@ -95,7 +98,10 @@ router.beforeEach((to, from, next) => {
       text: 'Se necesita ser administrador para acceder a esta sección.',
      
       
-    });
+    }).then(() => {
+      // Redirect to the previous page
+      window.history.back();
+  });
     next({
       name: 'login',
       params: { nextUrl: to.fullPath }
