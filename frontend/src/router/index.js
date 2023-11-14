@@ -102,8 +102,7 @@ router.beforeEach((to, from, next) => {
       
     }).then((result) => {
       if (result.isConfirmed) {
-        
-        window.location = "/";
+        window.history.back();
        }
   });
     next({

@@ -1,6 +1,7 @@
 <script>
 import { IonPage, IonContent, IonList, IonInput, IonButton, IonItem, IonLabel } from "@ionic/vue";
 import choferService from "../service/choferService";
+import Swal from 'sweetalert2/dist/sweetalert2';
 export default {
   components: { IonPage, IonContent, IonList, IonInput, IonButton, IonItem, IonLabel  },
   data() {
@@ -28,7 +29,19 @@ export default {
         !this.person.dni ||
         !this.person.email
       ) {
-        this.errorMessage = "Debe completar todos los campos correctamente";
+        Swal.fire({
+      toast: true,
+      position: 'front',
+      showConfirmButton: true,
+      timer: 5000,
+      timerProgressBar: true,
+
+      icon: 'error',
+      title: 'Campos incorrectos',
+      text: 'Debe completar todos los campos correctamente',
+     
+      
+    });
         return false;
       }
       return true;

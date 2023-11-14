@@ -17,6 +17,7 @@ import {
 import axios from "axios";
 import { vehiculoStore } from "../../stores/vehiculoStore";
 import vehiculosService from "../../service/vehiculosService";
+import Swal from 'sweetalert2/dist/sweetalert2';
 
 export default {
   components: {
@@ -42,14 +43,40 @@ export default {
   methods: {
     async search() {
       if (!this.busqueda) {
-        alert("Ingrese algo antes de buscar");
+        Swal.fire({
+      toast: true,
+      position: 'front',
+      showConfirmButton: true,
+      timer: 5000,
+      timerProgressBar: true,
+
+      icon: 'error',
+      title: 'Campo vacío',
+      text: 'Ingrese algo antes de buscar',
+     
+      
+    });
+       ;
       }
       const autos = await vehiculosService.searchData(this.busqueda);
 
       if (autos.length > 0) {
         this.autos = autos;
       } else {
-        alert("No se encontaron autos en la busqueda");
+        Swal.fire({
+      toast: true,
+      position: 'front',
+      showConfirmButton: true,
+      timer: 5000,
+      timerProgressBar: true,
+
+      icon: 'error',
+      title: 'Búsqueda fallida',
+      text: 'No se encontaron autos en la busqueda',
+     
+      
+    });
+     
         this.autos = [];
       }
     },
