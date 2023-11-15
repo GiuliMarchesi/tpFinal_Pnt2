@@ -10,9 +10,9 @@
       <h2>Bienvenidos a Remis App</h2>
 
       <p>
-        Remis App es una aplicación diseñada para la gestión de remises. <br>
+        Remis App es una aplicación diseñada para la gestión de remises. 
         Permite que los administradores puedan agregar y modificar a los choferes y vehiculos de la empresa, 
-        como asi tambien administrar los viajes que se realizaron y los que se realizarán. <br>
+        como asi tambien administrar los viajes que se realizaron y los que se realizarán. 
         A su vez, permite a los choferes ver los viajes que tienen asignados.
       </p>
 
@@ -42,5 +42,9 @@ ion-content, ion-list {
   align-items: center;
   justify-content: center;
 }
+ p {
+      text-align: justify;
+      margin: 20px;
+    }
 
 </style>
